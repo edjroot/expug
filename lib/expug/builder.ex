@@ -227,6 +227,7 @@ defmodule Expug.Builder do
   def attributes(_doc, nil), do: ""
 
   def attributes(doc, %{} = attributes) do
+    
     Enum.reduce attributes, "", fn {key, values}, acc ->
       acc <> valueify(doc, key, values)
     end

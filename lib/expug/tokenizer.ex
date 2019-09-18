@@ -380,7 +380,7 @@ defmodule Expug.Tokenizer do
   def sole_raw_text(state) do
     state
     |> whitespace()
-    |> eat(~r/^[^\n]+/, :raw_text)
+    |> eat(~r/^[^\n]+/u, :raw_text)
   end
 
   @doc "Matches `title` in `title= hello`"
@@ -396,7 +396,7 @@ defmodule Expug.Tokenizer do
       &(&1 |> discard(~r/^-\s*(?:#|\/\/)/, :line_comment))
     ])
     |> optional_whitespace()
-    |> eat(~r/^[^\n]*/, :line_comment)
+    |> eat(~r/^[^\n]*/u, :line_comment)
     |> optional(&subindent_block/1)
   end
 
@@ -415,7 +415,7 @@ defmodule Expug.Tokenizer do
   def subindent(state, level) do
     state
     |> discard(~r/^[ \t]{#{level}}/, :whitespace)
-    |> eat(~r/^[^\n]*/, :subindent)
+    |> eat(~r/^[^\n]*/u, :subindent)
   end
 
   def get_indent([{_, :indent, text} | _]) do
@@ -434,7 +434,7 @@ defmodule Expug.Tokenizer do
     state
     |> discard(~r[^//], :html_comment)
     |> optional_whitespace()
-    |> eat(~r/^[^\n$]*/, :html_comment)
+    |> eat(~r/^[^\n$]*/u, :html_comment)
     |> optional(&subindent_block/1)
   end
 
@@ -450,7 +450,7 @@ defmodule Expug.Tokenizer do
     state
     |> discard(~r/^=/, :eq)
     |> optional_whitespace()
-    |> eat(~r/^(?:[,\[\(\{]\s*\n|[^\n$])+/, :buffered_text)
+    |> eat(~r/^(?:[,\[\(\{]\s*\n|[^\n$])+/u, :buffered_text)
   end
 
   def multiline_buffered_text(state) do
@@ -472,7 +472,7 @@ defmodule Expug.Tokenizer do
     state
     |> discard(~r/^!=/, :bang_eq)
     |> optional_whitespace()
-    |> eat(~r/^(?:[,\[\(\{]\s*\n|[^\n$])+/, :unescaped_text)
+    |> eat(~r/^(?:[,\[\(\{]\s*\n|[^\n$])+/u, :unescaped_text)
   end
 
   def multiline_unescaped_text(state) do
@@ -486,7 +486,7 @@ defmodule Expug.Tokenizer do
     state
     |> discard(~r/^\|/, :pipe)
     |> optional_whitespace()
-    |> eat(~r/^[^\n]+/, :raw_text)
+    |> eat(~r/^[^\n]+/u, :raw_text)
   end
 
   def statement(state) do
@@ -501,7 +501,7 @@ defmodule Expug.Tokenizer do
     state
     |> discard(~r/^\-/, :dash)
     |> optional_whitespace()
-    |> eat(~r/^(?:[,\[\(\{]\s*\n|[^\n$])+/, :statement)
+    |> eat(~r/^(?:[,\[\(\{]\s*\n|[^\n$])+/u, :statement)
   end
 
   def multiline_statement(state) do

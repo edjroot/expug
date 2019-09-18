@@ -58,7 +58,7 @@ defmodule Expug.ExpressionTokenizer do
   """
   def expression_term(state) do
     state
-    |> append(~r/^[^\(\)\[\]\{\}"', \n\t]+/)
+    |> append(~r/^[^\(\)\[\]\{\}"', \n\t]+/u)
   end
 
   @doc """
@@ -67,7 +67,7 @@ defmodule Expug.ExpressionTokenizer do
   """
   def expression_term_inside(state) do
     state
-    |> append(~r/^[^\(\)\[\]\{\}"']+/)
+    |> append(~r/^[^\(\)\[\]\{\}"']+/u)
   end
 
   @doc """
@@ -120,7 +120,7 @@ defmodule Expug.ExpressionTokenizer do
     |> optional_many_of(fn s -> s
       |> one_of([
         &(&1 |> append(~r/^#/) |> balanced_braces()),
-        &(&1 |> append(~r/^(?:(?:\\")|[^"])/))
+        &(&1 |> append(~r/^(?:(?:\\")|[^"])/u))
       ])
     end)
     |> append(~r/^"/)
@@ -132,7 +132,7 @@ defmodule Expug.ExpressionTokenizer do
   def single_quote_string(state) do
     state
     |> append(~r/^'/)
-    |> optional_many_of(&(&1 |> append(~r/^(?:(?:\\')|[^'])/)))
+    |> optional_many_of(&(&1 |> append(~r/^(?:(?:\\')|[^'])/u)))
     |> append(~r/^'/)
   end
 end
