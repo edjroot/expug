@@ -127,7 +127,7 @@ defmodule Expug.ExpressionTokenizer do
   end
 
   @doc """
-  Matches an entire double-quoted string, taking care of escaping
+  Matches an entire single-quoted string, taking care of escaping
   """
   def single_quote_string(state) do
     state
