@@ -4,6 +4,8 @@ defmodule Expug.RuntimeTest do
 
   import Expug.Runtime
 
+  # TODO: Add test for non-string attribute values  
+
   test "strings" do
     assert attr("value", "hello") == ~S( value="hello")
   end
