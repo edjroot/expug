@@ -1,7 +1,7 @@
 defmodule Expug.Mixfile do
   use Mix.Project
 
-  @version "0.9.3"
+  @version "0.9.4"
   @description """
   Indented shorthand templates for HTML. (pre-release)
   """
