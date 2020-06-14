@@ -8,10 +8,10 @@ defmodule Expug.Runtime do
   """
 
   @doc """
-  Quotes a given `str` for use as an HTML attribute.
+  Stringifies a given `val` for use as an HTML attribute value.
   """
-  def attr_value(str) do
-    "\"#{attr_value_escape(str)}\""
+  def attr_value(val) do
+    "\"#{attr_value_escape("#{val}")}\""
   end
 
   def attr_value_escape(str) do
